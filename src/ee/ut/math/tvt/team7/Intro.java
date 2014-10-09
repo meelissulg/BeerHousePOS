@@ -27,19 +27,19 @@ public class Intro extends Application {
 	}
 
 	public static void main(String[] args) {
-		launch(args);
+		
 		Properties prop = new Properties();
 		OutputStream output = null;
 	 
 		try {
 	 
-			output = new FileOutputStream("POS/application.properties");
+			output = new FileOutputStream("application.properties");
 	 
 			// set the properties value
 			prop.setProperty("tiiminimi", "Team 7");
-			prop.setProperty("liider", "Lauri Välja");
+			prop.setProperty("liider", "Lauri Valja");
 			prop.setProperty("liidriemail", "valja.lauri@gmail.com");
-			prop.setProperty("liige1", "Lauri Välja \n Keili Pedel \n Ingrid Sarap \n Meelis Sulg");
+			prop.setProperty("liige1", "Lauri Valja \n Keili Pedel \n Ingrid Sarap \n Meelis Sulg");
 			
 			// save properties to project root folder
 			prop.store(output, null);
@@ -58,12 +58,19 @@ public class Intro extends Application {
 		}
 		String result = "";
 		Properties properties = new Properties();
-		String propFileName = "config.properties";
+		String propFileName = "application.properties";
  
-//		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-//		properties.load(inputStream);
-//		if (inputStream == null) {
-//			throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-//		}
+		InputStream inputStream = Intro.class.getClassLoader().getResourceAsStream(propFileName);
+		
+		try {
+			properties.load(inputStream);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	
+		System.out.println(properties.getProperty("liider"));
+		launch(args);
 	}
 }
