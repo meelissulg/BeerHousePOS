@@ -1,6 +1,7 @@
 package ee.ut.math.tvt.team7;
 
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,10 +18,13 @@ import javafx.stage.Stage;
 public class Intro extends Application {
 	public static String tiim;
 	public static String liider;
+	public static String liikmed;
+	public static String meil;
+	public static String logo;
 	@Override
 	public void start(Stage primaryStage) {
 		
-		Scene stseen =new Scene(IntroUI.toota(), 600, 500, Color.SNOW);
+		Scene stseen =new Scene(IntroUI.toota(), 600, 400, Color.SNOW);
 		primaryStage.setScene(stseen);
 		primaryStage.setResizable(false);
 		primaryStage.show();
@@ -37,9 +41,10 @@ public class Intro extends Application {
 	 
 			// set the properties value
 			prop.setProperty("tiiminimi", "Team 7");
-			prop.setProperty("liider", "Lauri Valja");
+			prop.setProperty("tiimilogo", "logo.jpg");
+			prop.setProperty("liider", "Lauri Välja");
 			prop.setProperty("liidriemail", "valja.lauri@gmail.com");
-			prop.setProperty("liige1", "Lauri Valja \n Keili Pedel \n Ingrid Sarap \n Meelis Sulg");
+			prop.setProperty("liige1", "Lauri Välja \nKeili Pedel \nIngrid Sarap \nMeelis Sulg");
 			
 			// save properties to project root folder
 			prop.store(output, null);
@@ -60,17 +65,29 @@ public class Intro extends Application {
 		Properties properties = new Properties();
 		String propFileName = "application.properties";
  
-		InputStream inputStream = Intro.class.getClassLoader().getResourceAsStream(propFileName);
+		//InputStream inputStream = Intro.class.getClassLoader().getResourceAsStream(propFileName);
+		InputStream is = null;
+		try {
+			is = new FileInputStream(propFileName);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try {
-			properties.load(inputStream);
+			properties.load(is);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	
-		System.out.println(properties.getProperty("liider"));
+		liider = properties.getProperty("liider");
+		tiim = properties.getProperty("tiiminimi");
+		liikmed = properties.getProperty("liige1");
+		meil = properties.getProperty("liidriemail");
+		logo = properties.getProperty("tiimilogo");
+		System.out.println(properties.getProperty("tiimilogo"));
 		launch(args);
 	}
 }
