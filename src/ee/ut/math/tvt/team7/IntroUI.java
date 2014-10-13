@@ -62,7 +62,11 @@ public class IntroUI{
         liikmed.setLayoutY(220);
         lava.getChildren().add(liikmed);
         
-
+        Text versioon=new Text(Intro.major+"."+Intro.minor+"."+Intro.revision);
+        versioon.setLayoutX(20);
+        versioon.setLayoutY(400);
+        lava.getChildren().add(versioon);
+        
         Image logo = new Image(Intro.logo, 300, 300, true, true);
         ImageView iv= new ImageView(logo);
         iv.setLayoutX(350);
