@@ -21,6 +21,9 @@ public class Intro extends Application {
 	public static String liikmed;
 	public static String meil;
 	public static String logo;
+	public static String revision;
+	public static String minor;
+	public static String major;
 	@Override
 	public void start(Stage primaryStage) {
 		
@@ -31,23 +34,43 @@ public class Intro extends Application {
 	}
 
 	public static void main(String[] args) {
-		
 		Properties prop = new Properties();
+		
+		String nimi = "version.properties";
+ 
+ 		InputStream input = null;
+		try {
+			input= new FileInputStream(nimi);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			prop.load(input);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		revision=prop.getProperty("build.revision.number");
+		minor=prop.getProperty("build.minor.number");
+		major=prop.getProperty("build.major.number");
+		Properties propa = new Properties();
 		OutputStream output = null;
 	 
 		try {
 	 
-			output = new FileOutputStream("application.properties");
+			output = new FileOutputStream("version.properties");
 	 
 			// set the properties value
-			prop.setProperty("tiiminimi", "Team 7");
-			prop.setProperty("tiimilogo", "logo.jpg");
-			prop.setProperty("liider", "Lauri Välja");
-			prop.setProperty("liidriemail", "valja.lauri@gmail.com");
-			prop.setProperty("liige1", "Lauri Välja \nKeili Pedel \nIngrid Sarap \nMeelis Sulg");
+			int a=Integer.parseInt(prop.getProperty("build.revision.number"))+1;
+			String b=Integer.toString(a);
+			propa.setProperty("build.revision.number", b);
+			propa.setProperty("build.minor.number", "1");
+			propa.setProperty("build.major.number", "1");
 			
 			// save properties to project root folder
-			prop.store(output, null);
+			propa.store(output, null);
 	 
 		} catch (IOException io) {
 			io.printStackTrace();
@@ -61,7 +84,8 @@ public class Intro extends Application {
 			}
 	 
 		}
-		String result = "";
+		
+		
 		Properties properties = new Properties();
 		String propFileName = "application.properties";
  
@@ -87,7 +111,6 @@ public class Intro extends Application {
 		liikmed = properties.getProperty("liige1");
 		meil = properties.getProperty("liidriemail");
 		logo = properties.getProperty("tiimilogo");
-		System.out.println(properties.getProperty("tiimilogo"));
 		launch(args);
 	}
 }
