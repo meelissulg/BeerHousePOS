@@ -7,6 +7,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.apache.log4j.Logger;
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -18,9 +20,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class IntroUI{
-
-
+	public static Logger log =Logger.getLogger(IntroUI.class);
+	
 	public static Group toota(){
+		log.info("IntroUI has been started");
 		Group lava = new Group();
 		
         Text nimi =new Text(Intro.tiim);
