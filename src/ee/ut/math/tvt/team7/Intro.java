@@ -1,6 +1,5 @@
 package ee.ut.math.tvt.team7;
 
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -15,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+// lamp
 public class Intro extends Application {
 	public static String tiim;
 	public static String liider;
