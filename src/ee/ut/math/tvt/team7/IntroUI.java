@@ -20,7 +20,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class IntroUI{
-	public static Logger log =Logger.getLogger(IntroUI.class);
+	public static Logger log = Logger.getLogger(IntroUI.class);
 	
 	public static Group toota(){
 		log.info("IntroUI has been started");
