@@ -1,23 +1,13 @@
 package ee.ut.math.tvt.team7;
 
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import org.apache.log4j.Logger;
-
-import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+
 
 public class IntroUI{
 	public static Logger log = Logger.getLogger(IntroUI.class);

@@ -14,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-// lamp
 public class Intro extends Application {
 	public static String tiim;
 	public static String liider;
