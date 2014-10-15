@@ -33,9 +33,10 @@ public class Intro extends Application {
 	}
 
 	public static void main(String[] args) {
+		
 		Properties prop = new Properties();
 		
-		String nimi = "version.properties";
+		String nimi = "config/version.properties";
  
  		InputStream input = null;
 		try {
@@ -59,7 +60,7 @@ public class Intro extends Application {
 	 
 		try {
 	 
-			output = new FileOutputStream("version.properties");
+			output = new FileOutputStream("config/version.properties");
 	 
 			// set the properties value
 			int a=Integer.parseInt(prop.getProperty("build.revision.number"))+1;
@@ -86,7 +87,7 @@ public class Intro extends Application {
 		
 		
 		Properties properties = new Properties();
-		String propFileName = "application.properties";
+		String propFileName = "config/application.properties";
  
 		//InputStream inputStream = Intro.class.getClassLoader().getResourceAsStream(propFileName);
 		InputStream is = null;
@@ -104,12 +105,13 @@ public class Intro extends Application {
 			e.printStackTrace();
 		}
 		
-	
 		liider = properties.getProperty("liider");
 		tiim = properties.getProperty("tiiminimi");
 		liikmed = properties.getProperty("liige1");
 		meil = properties.getProperty("liidriemail");
 		logo = properties.getProperty("tiimilogo");
+		
+		System.out.println(properties.getProperty("tiimilogo"));
 		launch(args);
 	}
 }

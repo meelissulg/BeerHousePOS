@@ -27,9 +27,7 @@
 				<include name="*.jar" />
 			</fileset>
 
-			<fileset dir="${lib.hibernate.dir}">
-				<include name="*.jar" />
-			</fileset>
+			
 
 		</path>
 	
@@ -90,8 +88,7 @@
 			<mkdir dir="${build.conf.dir}" />
 			<mkdir dir="${build.lib.dir}" />
 			<mkdir dir="${build.assets.dir}" />
-			<java classname="version.properties"
-				classpathref="run.classpath" />
+			
 			<copy toDir="${build.conf.dir}">
 				<fileset dir="${source.conf.dir}" />
 			</copy>

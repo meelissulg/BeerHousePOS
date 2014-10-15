@@ -60,7 +60,10 @@ public class IntroUI{
         versioon.setLayoutY(400);
         lava.getChildren().add(versioon);
         
-        Image logo = new Image(Intro.logo, 300, 300, true, true);
+        String work = System.getProperty("user.dir");
+        String path= "file:///"+work +"\\"+ Intro.logo;
+        System.out.println(path);
+        Image logo = new Image(path, 300, 300, true, true);
         ImageView iv= new ImageView(logo);
         iv.setLayoutX(350);
         iv.setLayoutY(20);
