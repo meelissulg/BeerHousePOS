@@ -83,7 +83,7 @@ public class PurchaseItemPanel extends JPanel {
 
         // Initialize the textfields
         barCodeField = new JTextField();
-        quantityField = new JTextField("1");
+        quantityField = new JTextField("69");
         nameField = new JTextField();
         priceField = new JTextField();
 
