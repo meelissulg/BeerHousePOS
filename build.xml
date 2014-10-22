@@ -106,7 +106,7 @@
 <!-- Runs application using JAR file-->
 	<target name="jrun" depends="build"
 			description="opens your intro window using the JAR file created by your dist ANT target">
-			<java fork="true" classname="ee.ut.math.tvt.team7.Intro"
+			<java fork="true" jar="${build.jar.dir}/${jarFileName}"
 				failonerror="true">
 				<classpath>
 					<pathelement path="${build.jar.dir}/${jarFileName}" />
