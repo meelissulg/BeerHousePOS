@@ -151,7 +151,7 @@
 			<git command="push">
 				<args>
 					<arg
-						value="https://USERNAME:PASSWORD@github.com/pohh-mell/BeerHousePOS" />
+						value="https://${username}:${password}@github.com/pohh-mell/BeerHousePOS" />
 				</args>
 			</git>
 		</target>
