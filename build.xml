@@ -150,7 +150,7 @@
 			<input message="Enter password" addproperty="password" />
 			<git command="push">
 				<args>
-					<arg
+					<arg 
 						value="https://${username}:${password}@github.com/pohh-mell/BeerHousePOS" />
 				</args>
 			</git>
@@ -161,14 +161,13 @@
 			<input message="Enter Tag comment" addproperty="tag-comment"></input>
 
 			<echo message="Executing git tag -a ${tag-name} -m ${tag-comment}" />
-			<!-- weird, but this cannot be done via macrodef as above -->
 			<exec executable="git" failonerror="true">
 				<arg line="tag -a ${tag-name} -m '${tag-comment}'" />
 			</exec>
 
 			<git command="push">
 				<args>
-					<arg value="--tags" />
+					<arg line="--tags" />
 				</args>
 			</git>
 		</target>
