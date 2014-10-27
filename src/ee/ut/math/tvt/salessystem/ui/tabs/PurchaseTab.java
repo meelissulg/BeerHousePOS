@@ -4,15 +4,20 @@ import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
+
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -108,6 +113,12 @@ public class PurchaseTab {
     b.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         submitPurchaseButtonClicked();
+        JFrame frame = new JFrame("FrameDemo");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Dimension d = new Dimension(400,400);
+        frame.setPreferredSize(d);
+        frame.pack();
+        frame.setVisible(true);
       }
     });
     b.setEnabled(false);
@@ -203,8 +214,6 @@ public class PurchaseTab {
     newPurchase.setEnabled(true);
     purchasePane.setEnabled(false);
   }
-
-
 
 
   /* === Next methods just create the layout constraints objects that control the
