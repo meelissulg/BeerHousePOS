@@ -170,9 +170,16 @@ public class PurchaseItemPanel extends JPanel {
             } catch (NumberFormatException ex) {
                 quantity = 1;
             }
-            model.getCurrentPurchaseTableModel()
-                .addItem(new SoldItem(stockItem, quantity));
-        }
+            SoldItem soldItem = new SoldItem(stockItem, quantity);
+            if (stockItem.getQuantity() >= soldItem.getQuantity()){
+            	model.getCurrentPurchaseTableModel()
+                .addItem(soldItem);
+            }
+            else{
+            	System.out.println("Toodet pole piisavalt!");
+            }
+            }
+            
     }
 
     /**
