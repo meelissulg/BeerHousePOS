@@ -99,7 +99,11 @@
 			<jar destfile="${build.jar.dir}/${jarFileName}" basedir="${build.classes.dir}">
 				<!-- include log4j config and jar files -->
 				<fileset dir="${build.conf.dir}" includes="**/*.properties" />
+				<manifest>
+				<attribute name="Main-Class" value="ee.ut.math.tvt.team7.Intro"/>
+				</manifest>
 				<zipgroupfileset dir="${build.lib.dir}" includes="**/*.jar" />
+				
 			</jar>
 		</target>
 	
