@@ -134,6 +134,7 @@
 		</macrodef>
 
 		<target name="git_commit">
+			
 			<input message="Commit message" addproperty="commit-message"></input>
 			<echo message="Committing all changes with message ${commit-message}" />
 			<git command="add">
