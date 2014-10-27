@@ -3,6 +3,7 @@ package ee.ut.math.tvt.salessystem.ui.panels;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -11,10 +12,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.NoSuchElementException;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -176,7 +179,10 @@ public class PurchaseItemPanel extends JPanel {
                 .addItem(soldItem);
             }
             else{
-            	System.out.println("Toodet pole piisavalt!");
+            	final JPanel panel = new JPanel();
+
+                JOptionPane.showMessageDialog(panel, "Toodet pole piisavalt!", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
             }
             }
             
