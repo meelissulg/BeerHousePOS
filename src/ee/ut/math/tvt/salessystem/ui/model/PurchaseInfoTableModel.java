@@ -67,4 +67,13 @@ public class PurchaseInfoTableModel extends SalesSystemTableModel<SoldItem> {
         log.debug("Added " + item.getName() + " quantity of " + item.getQuantity());
         fireTableDataChanged();
     }
+    
+    
+    public double getTotalPrice() {
+        double price = 0.0;
+        for (SoldItem item : getTableRows()) {
+            price += item.getSum();
+        }
+        return price;
+    }
 }

@@ -1,22 +1,27 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
-import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
+import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
+import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
+
 
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
 
@@ -113,12 +118,32 @@ public class PurchaseTab {
     b.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         submitPurchaseButtonClicked();
-        JFrame frame = new JFrame("FrameDemo");
+        JFrame frame = new JFrame("Makse");
+        frame.setLayout(new GridLayout(4, 2));
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Dimension d = new Dimension(400,400);
-        frame.setPreferredSize(d);
+        JTextField Payment = new JTextField();
+        Payment.setText("0");
+        frame.add(new JLabel("Total sum: "));
+        double price = model.getCurrentPurchaseTableModel().getTotalPrice();
+        frame.add(new JLabel(String.valueOf(price)));
+        frame.add(new JLabel("Payment amount: "));
+        frame.add(Payment);
+        double change=Double.parseDouble(Payment.getText())-price;
+        frame.add(new JLabel("Change amount: "));
+      frame.add(new JLabel(String.valueOf(change)));
+
+      
+      JButton accept = new JButton("Accept");
+      frame.add(accept);
+      JButton cancel = new JButton("Cancel");
+      frame.add(cancel);
         frame.pack();
+        frame.setResizable(false);
         frame.setVisible(true);
+            
+            
+//        
+        
       }
     });
     b.setEnabled(false);
