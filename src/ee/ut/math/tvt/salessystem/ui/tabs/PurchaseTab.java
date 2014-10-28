@@ -48,7 +48,7 @@ public class PurchaseTab {
   private PurchaseItemPanel purchasePane;
 
   private SalesSystemModel model;
-  double change=0;
+ 
 
   public PurchaseTab(SalesDomainController controller,
       SalesSystemModel model)
@@ -105,18 +105,19 @@ public class PurchaseTab {
   
 
   public void uusaken(){
-	  JFrame frame = new JFrame("Makse");
+	  final JFrame frame = new JFrame("Makse");
       frame.setLayout(new GridLayout(4, 2));
       frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-      JTextField payment = new JTextField();
+      final JTextField payment = new JTextField();
       payment.setText("0");
       frame.add(new JLabel("Total sum: "));
-      double price = model.getCurrentPurchaseTableModel().getTotalPrice();
+      final double price = model.getCurrentPurchaseTableModel().getTotalPrice();
       frame.add(new JLabel(String.valueOf(price)));
       frame.add(new JLabel("Payment amount: "));
       frame.add(payment);
       frame.add(new JLabel("Change amount: "));
-    JLabel tagasi = new JLabel();
+      final JLabel tagasi = new JLabel();
+    
   frame.add(tagasi);
       payment.addKeyListener(new KeyAdapter() 
       {
@@ -124,7 +125,7 @@ public class PurchaseTab {
           {
               if(evt.getKeyCode() == KeyEvent.VK_ENTER)
               {
-            	  change=Double.parseDouble(payment.getText())-price;
+            	  double change=Double.parseDouble(payment.getText())-price;
             	  tagasi.setText(String.valueOf(change));
 
               }
