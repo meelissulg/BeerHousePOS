@@ -86,7 +86,7 @@ public class HistoryTab extends JPanel  {
         panel.add(drawStockMenuPane(), gc);
         gc.weighty = 1.0;
         gc.fill = GridBagConstraints.BOTH;
-        panel.add(drawStockMainPane(), gc);
+//        panel.add(drawStockMainPane(), gc);
        
         return panel;
     }
@@ -111,39 +111,39 @@ public class HistoryTab extends JPanel  {
         return panel;
       }
     
-    private Component drawStockMainPane() {
-        JPanel panel = new JPanel();
-
-        
-		JTable table = new JTable(model.getHistoryTableModel());
-		
-		table.addMouseListener(new MouseAdapter() {
-			  public void mouseClicked(MouseEvent e) {
-			    if (e.getClickCount() == 1) {
-			      JTable target = (JTable)e.getSource();
-			      int row = target.getSelectedRow();
-			      
-			    }
-			  }
-		});
-			  
-        JTableHeader header = table.getTableHeader();
-        header.setReorderingAllowed(false);
-
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        GridBagConstraints gc = new GridBagConstraints();
-        GridBagLayout gb = new GridBagLayout();
-        gc.fill = GridBagConstraints.BOTH;
-        gc.weightx = 1.0;
-        gc.weighty = 1.0;
-
-        panel.setLayout(gb);
-        panel.add(scrollPane, gc);
-
-        panel.setBorder(BorderFactory.createTitledBorder("History of orders"));
-        return panel;
-        
-      }
+//    private Component drawStockMainPane() {
+//        JPanel panel = new JPanel();
+//
+//        
+//		JTable table = new JTable(model.getHistoryTableModel());
+//		
+//		table.addMouseListener(new MouseAdapter() {
+//			  public void mouseClicked(MouseEvent e) {
+//			    if (e.getClickCount() == 1) {
+//			      JTable target = (JTable)e.getSource();
+//			      int row = target.getSelectedRow();
+//			      
+//			    }
+//			  }
+//		});
+//			  
+//        JTableHeader header = table.getTableHeader();
+//        header.setReorderingAllowed(false);
+//
+//        JScrollPane scrollPane = new JScrollPane(table);
+//
+//        GridBagConstraints gc = new GridBagConstraints();
+//        GridBagLayout gb = new GridBagLayout();
+//        gc.fill = GridBagConstraints.BOTH;
+//        gc.weightx = 1.0;
+//        gc.weighty = 1.0;
+//
+//        panel.setLayout(gb);
+//        panel.add(scrollPane, gc);
+//
+//        panel.setBorder(BorderFactory.createTitledBorder("History of orders"));
+//        return panel;
+//        
+//      }
     
 }
