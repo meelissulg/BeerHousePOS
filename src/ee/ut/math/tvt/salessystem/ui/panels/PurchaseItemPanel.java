@@ -9,12 +9,10 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.util.NoSuchElementException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,7 +31,7 @@ public class PurchaseItemPanel extends JPanel {
     // Text field on the dialogPane
     private JTextField barCodeField;
     private JTextField quantityField;
-    private JTextField nameField;
+    private JComboBox<String> nameField;
     private JTextField priceField;
 
     private JButton addItemButton;
@@ -87,24 +85,21 @@ public class PurchaseItemPanel extends JPanel {
         // Initialize the textfields
         barCodeField = new JTextField();
         quantityField = new JTextField("69");
-        nameField = new JTextField();
+        nameField = new JComboBox<String>();
         priceField = new JTextField();
 
-        // Fill the dialog fields if the bar code text field loses focus
-        barCodeField.addFocusListener(new FocusListener() {
-            public void focusGained(FocusEvent e) {
-            }
-
-            public void focusLost(FocusEvent e) {
-                fillDialogFields();
+        // Fill the dialog fields if the name field loses focus
+        nameField.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	fillDialogFields();
             }
         });
 
         nameField.setEditable(false);
         priceField.setEditable(false);
-
+        barCodeField.setEditable(false);
+        
         // == Add components to the panel
-
         // - bar code
         panel.add(new JLabel("Bar code:"));
         panel.add(barCodeField);
@@ -136,26 +131,26 @@ public class PurchaseItemPanel extends JPanel {
 
     // Fill dialog with data from the "database".
     public void fillDialogFields() {
-        StockItem stockItem = getStockItemByBarcode();
-
+    	
+    	StockItem stockItem = getStockItemByName(nameField.getItemAt(nameField.getSelectedIndex()));
         if (stockItem != null) {
-            nameField.setText(stockItem.getName());
+            barCodeField.setText(String.valueOf(stockItem.getId()));
             String priceString = String.valueOf(stockItem.getPrice());
             priceField.setText(priceString);
+
+            
         } else {
             reset();
         }
     }
 
-    // Search the warehouse for a StockItem with the bar code entered
-    // to the barCode textfield.
-    private StockItem getStockItemByBarcode() {
-        try {
-            int code = Integer.parseInt(barCodeField.getText());
-            return model.getWarehouseTableModel().getItemById(code);
-        } catch (NumberFormatException ex) {
-            return null;
-        } catch (NoSuchElementException ex) {
+
+	// Search the warehouse for a StockItem with the name in dropdown menu 
+    
+    private StockItem getStockItemByName(String name) {
+        try {;
+        return model.getWarehouseTableModel().getItemByName(name);
+        } catch (Exception e) {
             return null;
         }
     }
@@ -165,7 +160,7 @@ public class PurchaseItemPanel extends JPanel {
      */
     public void addItemEventHandler() {
         // add chosen item to the shopping cart.
-        StockItem stockItem = getStockItemByBarcode();
+    	StockItem stockItem = getStockItemByName(nameField.getItemAt(nameField.getSelectedIndex()));
         if (stockItem != null) {
             int quantity;
             try {
@@ -194,8 +189,11 @@ public class PurchaseItemPanel extends JPanel {
     @Override
     public void setEnabled(boolean enabled) {
         this.addItemButton.setEnabled(enabled);
-        this.barCodeField.setEnabled(enabled);
         this.quantityField.setEnabled(enabled);
+        String[] items = model.getWarehouseTableModel().getItems();
+        for (int i = 0; i<items.length; i++){
+        	nameField.addItem(items[i]);
+        }
     }
 
     /**
@@ -204,7 +202,7 @@ public class PurchaseItemPanel extends JPanel {
     public void reset() {
         barCodeField.setText("");
         quantityField.setText("1");
-        nameField.setText("");
+        nameField.removeAllItems();
         priceField.setText("");
     }
 

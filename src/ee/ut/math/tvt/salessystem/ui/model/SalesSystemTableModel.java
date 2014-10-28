@@ -41,7 +41,8 @@ public abstract class SalesSystemTableModel<T extends DisplayableItem> extends
     public String getColumnName(final int columnIndex) {
         return headers[columnIndex];
     }
-
+    
+	
     public int getRowCount() {
         return rows.size();
     }
@@ -58,6 +59,25 @@ public abstract class SalesSystemTableModel<T extends DisplayableItem> extends
         }
         throw new NoSuchElementException();
     }
+    
+	public T getItemByName(final String name) {
+		for (final T item : rows) {
+			if (item.getName().equals(name)){
+				return item;
+			}
+		}
+		throw new NoSuchElementException();
+	}
+	
+	public String[] getItems(){
+		String[] items = new String[this.getRowCount()];
+		int i = 0;
+		for(final T item : rows){
+			items[i] = item.getName();
+			i++;
+		}
+		return items;
+	}
 
     public List<T> getTableRows() {
         return rows;

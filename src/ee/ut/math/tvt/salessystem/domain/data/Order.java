@@ -63,14 +63,12 @@ public class Order implements Cloneable, DisplayableItem {
 		return a.format(getDateAndTime());	
 	}
 	
-	@Override
 	public Long getId() {
 		// TODO Auto-generated method stub
 		return this.id;
 	}
 
 
-	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
 		return this.getName();
