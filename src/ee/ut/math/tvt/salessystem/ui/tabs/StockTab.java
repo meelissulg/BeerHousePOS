@@ -1,8 +1,10 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.domain.exception.OutOfStockException;
+import ee.ut.math.tvt.salessystem.domain.controller.impl.*;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -28,6 +30,9 @@ import javax.swing.JTextField;
 import javax.swing.table.JTableHeader;
 
 import java.awt.FlowLayout;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import javax.swing.JFrame;
@@ -36,6 +41,7 @@ import javax.swing.UIManager;
 public class StockTab {
 
   private JButton addItem;
+  private JTextField idField;
   private JTextField quantityField;
   private JTextField nameField;
   private JTextField priceField;
@@ -83,17 +89,26 @@ public class StockTab {
 		return gc;
 	}
   private Component drawStockMenuPane() {
-    JPanel panel = new JPanel();
-    JPanel panell = new JPanel(); 
-    panell.setLayout(new GridLayout(6, 2));
-	panell.setBorder(BorderFactory.createTitledBorder("Add product"));
-	
+    JPanel panel = new JPanel(); 
+    panel.setLayout(new GridBagLayout());
+
+	// Create the panel
+	JPanel panell = new JPanel();
+	panell.setLayout(new GridLayout(8, 2));
+//	panell.setBorder(BorderFactory.createTitledBorder("Add product"));
 	// Initialize the textfields
+	idField = new JTextField();
 	nameField = new JTextField();
 	descField = new JTextField();
 	priceField = new JTextField();
 	quantityField = new JTextField();
 	
+	// - ID
+	panell.add(new JLabel("ID: "));
+	panell.add(idField);
+	
+	
+	// - name
 	panell.add(new JLabel("Name: "));
 	panell.add(nameField);
 
@@ -112,108 +127,28 @@ public class StockTab {
 	addItem = new JButton("A.D.D");
 	addItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-
-			StockItem item = new StockItem();
-			Boolean isError = true;
-
-			try {
-				item.setName(nameField.getText());
-				item.setDescription(descField.getText());
-				item.setPrice((double) Math.round(Double
-						.parseDouble(priceField.getText()) * 10) / 10);
-				item.setQuantity(Integer.parseInt(quantityField.getText()));
-				isError = false;
-			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(null,
-						"Please insert valid data", "Error",
-						JOptionPane.WARNING_MESSAGE);
-			}
-
-			if (!isError) {
-				try {
-//					Session session = HibernateUtil.currentSession();
-//					session.beginTransaction();
-//					session.persist(item);
-//					session.getTransaction().commit();
-					model.getWarehouseTableModel().addItem(item);
-				} catch (Throwable t) {
-					log.error("Could not save item to the database");
-					t.printStackTrace();
-					JOptionPane.showMessageDialog(null,
-							"Database transaction failed", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
-			}
+//			StockItem item2 = new StockItem();
+			StockItem item2 = new StockItem(Long.parseLong(idField.getText()),nameField.getText(),
+				descField.getText(),
+					(double) Math.round(Double.parseDouble(priceField.getText()) * 10) / 10,
+					Integer.parseInt(quantityField.getText()));
+//			item2.setId(Long.parseLong(idField.getText()));
+//			item2.setName(nameField.getText());
+//			item2.setDescription(descField.getText());
+//			item2.setPrice((double) Math.round(Double.parseDouble(priceField.getText()) * 10) / 10);
+//			item2.setQuantity(Integer.parseInt(quantityField.getText()));
+			System.out.println(item2);
+			StockTableModel model = new StockTableModel();
+			model.addItem(item2);
+			///Siia peaks tegema midagi, mis selle item2 paneb siis kirja
 		}
 	});
 	panell.add(addItem);
 	panel.add(panell, getDialogPaneConstraints());
-	panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+	panel.setBorder(BorderFactory.createLineBorder(Color.RED));
 	return panel;
 	
-
-//    GridBagConstraints gc = new GridBagConstraints();
-//    GridBagLayout gb = new GridBagLayout();
-//
-//    panel.setLayout(gb);
-//
-//    gc.anchor = GridBagConstraints.NORTHWEST;
-//    gc.weightx = 0;
-//
-//    JButton nupukene = new JButton("Add");
-//    gc.gridwidth = GridBagConstraints.RELATIVE;
-//    gc.weightx = 1.0;
-//    panel.add(nupukene, gc);
-//    nupukene.addActionListener(new ActionListener() {
-//        public void actionPerformed(ActionEvent e) {
-//          JFrame frame = new JFrame("Toote lisamine");
-////          frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-////          Dimension d = new Dimension(400,400);
-////          frame.setPreferredSize(d);
-////          frame.pack();
-////          frame.setVisible(true);
-//          frame.getContentPane().setLayout(new FlowLayout());
-//          final JTextField PID = new JTextField("Product ID", 7);
-//          frame.getContentPane().add(PID);
-////          double PIDD = Long.parseLong(PID.getText());
-//          final JTextField PName = new JTextField("Product Name", 7);
-//          frame.getContentPane().add(PName);
-////          String PName = textfield.getText();
-//          final JTextField q = new JTextField("Desc", 6);
-//          frame.getContentPane().add(q);
-//          final JTextField t = new JTextField("Price", 3);
-//          frame.getContentPane().add(t);
-////          double tt = Double.parseDouble(t.getText());
-//          final JTextField qua = new JTextField("Quantity", 3);
-//          frame.getContentPane().add(t);
-////          double quan = Double.parseDouble(qua.getText());
-//          JButton nuperdis = new JButton("LISA");
-//          frame.getContentPane().add(nuperdis);
-////    										      nuperdis.addActionListener(new ActionListener() {
-////							  public void actionPerformed(ActionEvent e) {
-////								            	  StockItem(1,"lamp","2",1,1);
-////								              }
-////								          });
-////          frame.getContentPane().add(new JTextField("Product ID"));
-////          frame.getContentPane().add(new JTextField("Product Name", 8));
-////          JTextField t = new JTextField("Price", 3);
-////          t.setHorizontalAlignment(JTextField.RIGHT);
-////          frame.getContentPane().add(t);
-////          t = new JTextField("Quantity", 6);
-////          t.setHorizontalAlignment(JTextField.CENTER);
-////          frame.getContentPane().add(t);
-////          frame.getContentPane().add(new JButton("LISA"));
-////        frame.getContentPane().add(new JTextField("Text field 5", 3));
-//         //Juhul, kui on vaja veel midagi lisada
-//
-//          frame.pack();
-//          frame.setVisible(true);
-//        }
-//      });
-//
-//
-//    panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-//    return panel;
+	
   }
 
 

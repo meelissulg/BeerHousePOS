@@ -38,7 +38,7 @@ public class StockTableModel extends SalesSystemTableModel<StockItem> {
 	 * same id, then existing item's quantity will be increased.
 	 * @param stockItem
 	 */
-	public void addItem(final StockItem stockItem) {
+	public void addItem(StockItem stockItem) {
 		try {
 			StockItem item = getItemById(stockItem.getId());
 			item.setQuantity(item.getQuantity() + stockItem.getQuantity());
