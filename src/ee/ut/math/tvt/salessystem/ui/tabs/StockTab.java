@@ -190,7 +190,7 @@ public class StockTab {
 //          JButton nuperdis = new JButton("LISA");
 //          frame.getContentPane().add(nuperdis);
 ////    										      nuperdis.addActionListener(new ActionListener() {
-////	Oleks täiega vaja							  public void actionPerformed(ActionEvent e) {
+////							  public void actionPerformed(ActionEvent e) {
 ////								            	  StockItem(1,"lamp","2",1,1);
 ////								              }
 ////								          });

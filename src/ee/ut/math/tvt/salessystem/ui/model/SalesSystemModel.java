@@ -16,6 +16,8 @@ public class SalesSystemModel {
     
     // Current shopping cart model
     private PurchaseInfoTableModel currentPurchaseTableModel;
+    
+    private OrderTableModel historyTableModel;
 
     private final SalesDomainController domainController;
 
@@ -42,4 +44,7 @@ public class SalesSystemModel {
         return currentPurchaseTableModel;
     }
     
+    public OrderTableModel getHistoryTableModel() {
+        return historyTableModel;
+    }
 }
