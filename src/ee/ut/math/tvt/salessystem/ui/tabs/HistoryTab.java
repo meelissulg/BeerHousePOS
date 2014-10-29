@@ -34,32 +34,7 @@ public class HistoryTab extends JPanel  {
  
 	private SalesSystemModel model;
 	
-	public HistoryTab(SalesSystemModel model){
-		this.model = model; 
-		StockItem a = new StockItem((long)12, "coca-cola", "karastusjook", 1.5, 200);
-    	SoldItem a1 = new SoldItem(a, 2);
-    	StockItem b = new StockItem((long)13, "creme-brule", "magustoidud", 3.5, 20);
-    	SoldItem b1 = new SoldItem(b, 2);
-    	
-    	
-    	StockItem c = new StockItem((long)14, "kohv", "kuumad joogid", 1.7, 130);
-    	SoldItem c1 = new SoldItem(c, 2);
-    	StockItem d = new StockItem((long)15, "premium", "olled", 2.5, 70);
-    	SoldItem d1 = new SoldItem(d, 1);
-    	
-    	List<SoldItem> soldItems1 = new ArrayList<SoldItem>();
-    	soldItems1.add(a1);
-    	soldItems1.add(b1);
-    	
-    	List<SoldItem> soldItems2 = new ArrayList<SoldItem>();
-    	soldItems2.add(c1);
-    	soldItems2.add(d1);
-    	
-    	Order order1 = new Order(Order.getNextId(), soldItems1);
-    	Order order2 = new Order(Order.getNextId(), soldItems2);
-		model.getHistoryTableModel().addOrder(order1);
-		model.getHistoryTableModel().addOrder(order2);
-	}
+
 	
     public HistoryTab() {
     	
