@@ -9,6 +9,7 @@ import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
 
 
 
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -24,6 +25,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -117,16 +119,23 @@ public class PurchaseTab {
       frame.add(payment);
       frame.add(new JLabel("Change amount: "));
       final JLabel tagasi = new JLabel();
-    
-  frame.add(tagasi);
+      frame.add(tagasi);
       payment.addKeyListener(new KeyAdapter() 
       {
           public void keyPressed(KeyEvent evt)
           {
               if(evt.getKeyCode() == KeyEvent.VK_ENTER)
               {
+            	  try{
             	  double change=Double.parseDouble(payment.getText())-price;
             	  tagasi.setText(String.valueOf(change));
+            	  }
+            	  catch( java.lang.NumberFormatException e){
+            		  final JPanel panel = new JPanel();
+
+                      JOptionPane.showMessageDialog(panel, "Vale sisend", "Warning",
+                          JOptionPane.WARNING_MESSAGE);
+            	  }
 
               }
           }
