@@ -1,80 +1,58 @@
 package ee.ut.math.tvt.salessystem.domain.data;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
-public class Order implements Cloneable, DisplayableItem {
-	
-	static long currentId = 0;
-	
+
+
+public class Order {
+
 	private Long id;
-	private List<SoldItem> soldItems ;
-	private Date dateAndTime;
+
+	private Date date;
+
+	private List<SoldItem> soldItems;
 	
-	public Order(Long id, List<SoldItem> soldItems){
-		this.id = id;
-		this.dateAndTime = new GregorianCalendar().getTime();
-		this.soldItems = soldItems;
+	public Order() {
+		soldItems = new ArrayList<SoldItem>();
+		date = new Date();
 	}
 	
-	
+	public Order(List<SoldItem> soldItems) {
+		this.soldItems = soldItems;
+		this.date = new Date();
+		//for (SoldItem soldItem : soldItems)
+			//soldItem.setSale(this);
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
 	public List<SoldItem> getSoldItems() {
 		return soldItems;
 	}
 
-
-	public void setSoldItems(List<SoldItem> soldItems) {
-		this.soldItems = soldItems;
+	public Long getID() {
+		return id;
 	}
-
-
-	public Date getDateAndTime() {
-		return dateAndTime;
+	
+	public void addSoldItem(SoldItem soldItem) {
+		soldItems.add(soldItem);
+		//soldItem.setSale(this);
 	}
-
-
-	public void setDateAndTime(Date dateAndTime) {
-		this.dateAndTime = dateAndTime;
+	
+	public int getNrOfSoldItems() {
+		return soldItems.size();
 	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public double calculateTotalSum(){
-		double sum = 0;
+	
+	public double getSum() {
+		double sum = 0.0;
+		for (SoldItem soldItem: soldItems)
+			sum += soldItem.getSum();
 		
-		for(SoldItem item: soldItems){
-			sum = sum + item.getSum();
-		}
 		return sum;
 	}
 	
-	// todo: should return something else when connected to a database
-	public static long getNextId() {
-		return ++currentId;
-	}
-	
-	public String returnDateAndTime(){
-		SimpleDateFormat a = new SimpleDateFormat("dd.MM.yyyy, 'kl' HH:mm:ss"); 
-		return a.format(getDateAndTime());	
-	}
-	
-	public Long getId() {
-		// TODO Auto-generated method stub
-		return this.id;
-	}
-
-
-	public String getName() {
-		// TODO Auto-generated method stub
-		return this.getName();
-	}
-
-
-	
-
 }
