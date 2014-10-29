@@ -126,6 +126,13 @@ public class PurchaseTab {
           {
               if(evt.getKeyCode() == KeyEvent.VK_ENTER)
               {
+            	  if(Double.parseDouble(payment.getText())<price){
+            		  final JPanel panel = new JPanel();
+
+                      JOptionPane.showMessageDialog(panel, "Sisestatud summa on liiga väike", "Warning",
+                          JOptionPane.WARNING_MESSAGE);
+      }
+            	  else{
             	  try{
             	  double change=Double.parseDouble(payment.getText())-price;
             	  tagasi.setText(String.valueOf(change));
@@ -136,7 +143,7 @@ public class PurchaseTab {
                       JOptionPane.showMessageDialog(panel, "Vale sisend", "Warning",
                           JOptionPane.WARNING_MESSAGE);
             	  }
-
+            	  }
               }
           }
       });
