@@ -14,6 +14,8 @@ public class SoldItem implements Cloneable, DisplayableItem {
     private Integer quantity;
     private double price;
     
+    private Order order;
+    
     public SoldItem(StockItem stockItem, int quantity) {
         this.stockItem = stockItem;
         this.name = stockItem.getName();
@@ -66,5 +68,13 @@ public class SoldItem implements Cloneable, DisplayableItem {
     public void setStockItem(StockItem stockItem) {
         this.stockItem = stockItem;
     }
+    
+    public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
     
 }
