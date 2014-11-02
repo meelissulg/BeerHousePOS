@@ -129,8 +129,8 @@ public class PurchaseTab {
             	  if(Double.parseDouble(payment.getText())<price){
             		  final JPanel panel = new JPanel();
 
-                      JOptionPane.showMessageDialog(panel, "Sisestatud summa on liiga väike", "Warning",
-                          JOptionPane.WARNING_MESSAGE);
+                     JOptionPane.showMessageDialog(panel, "Sisestatud summa on liiga väike", "Warning",
+                     JOptionPane.WARNING_MESSAGE);
       }
             	  else{
             	  try{
