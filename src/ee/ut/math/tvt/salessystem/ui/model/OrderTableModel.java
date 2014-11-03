@@ -42,17 +42,17 @@ public class OrderTableModel extends AbstractTableModel {
 			addItem(sale);
 	}
 
-	@Override
+	
 	public int getRowCount() {
 		return rows.size();
 	}
 
-	@Override
+
 	public int getColumnCount() {
 		return headers.length;
 	}
 
-	@Override
+
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		return (rows.get(rowIndex)[columnIndex]);
 	}
