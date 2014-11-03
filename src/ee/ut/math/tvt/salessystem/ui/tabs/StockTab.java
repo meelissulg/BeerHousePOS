@@ -128,21 +128,55 @@ public class StockTab {
 	addItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 //			StockItem item2 = new StockItem();
-			StockItem item2 = new StockItem(Long.parseLong(idField.getText()),nameField.getText(),
-				descField.getText(),
-					(double) Math.round(Double.parseDouble(priceField.getText()) * 10) / 10,
-					Integer.parseInt(quantityField.getText()));
-//			item2.setId(Long.parseLong(idField.getText()));
-//			item2.setName(nameField.getText());
-//			item2.setDescription(descField.getText());
-//			item2.setPrice((double) Math.round(Double.parseDouble(priceField.getText()) * 10) / 10);
-//			item2.setQuantity(Integer.parseInt(quantityField.getText()));
-			System.out.println(item2);
-			StockTableModel model = new StockTableModel();
-			model.addItem(item2);
+			boolean kasonhea=true;
+			long esimene = 0;
+			try{
+				esimene=Long.parseLong(idField.getText());
+			}
+			catch(java.lang.NumberFormatException f){
+				kasonhea=false;
+				final JPanel panel = new JPanel();
+
+                JOptionPane.showMessageDialog(panel, "Vale sisend", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+			}
+			double price=0;
+			try{
+				price=(double) Math.round(Double.parseDouble(priceField.getText()) * 10) / 10;
+			}
+			catch(java.lang.NumberFormatException f){
+				final JPanel panel = new JPanel();
+				kasonhea=false;
+
+                JOptionPane.showMessageDialog(panel, "Vale sisend", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+			}
+			
+			
+			int quant=0;
+			try{
+				quant=Integer.parseInt(quantityField.getText());
+			}
+			catch(java.lang.NumberFormatException f){
+				final JPanel panel = new JPanel();
+				kasonhea=false;
+                JOptionPane.showMessageDialog(panel, "Vale sisend", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+			}
+			
+			if (kasonhea=true){
+			StockItem item2 = new StockItem(esimene,nameField.getText(),
+				descField.getText(),price,quant);
+			model.getWarehouseTableModel().addItem(item2);
+			}
+			
+
+			
 			///Siia peaks tegema midagi, mis selle item2 paneb siis kirja
+		//return item2?
 		}
 	});
+	
 	panell.add(addItem);
 	panel.add(panell, getDialogPaneConstraints());
 	panel.setBorder(BorderFactory.createLineBorder(Color.RED));
@@ -150,6 +184,21 @@ public class StockTab {
 	
 	
   }
+//  public static List<StockItem> loadddd() {
+//		List<StockItem> dataset = new ArrayList<StockItem>();
+//
+//		StockItem chips = new StockItem(1l, "Hays chips", "Potato chips", 11.0, 5);
+//		StockItem chupaChups = new StockItem(2l, "Chupa-chups", "Sweets", 8.0, 8);
+//	    StockItem frankfurters = new StockItem(3l, "Frankfurters", "Beer sauseges", 15.0, 12);
+//	    StockItem beer = new StockItem(4l, "Free Beer", "Student's delight", 0.0, 100);
+//
+//		dataset.add(chips);
+//		dataset.add(chupaChups);
+//		dataset.add(frankfurters);
+//		dataset.add(beer);
+//		
+//		return dataset;
+//	}
 
 
   // table of the wareshouse stock
