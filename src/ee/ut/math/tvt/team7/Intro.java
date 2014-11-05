@@ -99,15 +99,15 @@ private static final String MODE = "console";
 	 
 			output = new FileOutputStream("config/version.properties");
 	 
-			// set the properties value
-			int a=Integer.parseInt(prop.getProperty("build.revision.number"))+1;
-			String b=Integer.toString(a);
-			propa.setProperty("build.revision.number", b);
-			propa.setProperty("build.minor.number", "1");
-			propa.setProperty("build.major.number", "1");
-			
-			// save properties to project root folder
-			propa.store(output, null);
+//			// set the properties value
+//			int a=Integer.parseInt(prop.getProperty("build.revision.number"))+1;
+//			String b=Integer.toString(a);
+//			propa.setProperty("build.revision.number", b);
+//			propa.setProperty("build.minor.number", "1");
+//			propa.setProperty("build.major.number", "1");
+//			
+//			// save properties to project root folder
+//			propa.store(output, null);
 	 
 		} catch (IOException io) {
 			io.printStackTrace();
