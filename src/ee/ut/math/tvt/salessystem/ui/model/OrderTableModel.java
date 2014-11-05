@@ -69,5 +69,7 @@ public class OrderTableModel extends AbstractTableModel {
     	
     	return "" + sum;
     }
+    
+
 
 }

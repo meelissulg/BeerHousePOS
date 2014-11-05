@@ -56,7 +56,7 @@ public class HistoryTab extends JPanel  {
 		panel.setLayout(new GridBagLayout());
 		panel.setBorder(BorderFactory.createTitledBorder("History"));
 
-		final JTable infoTable = new JTable(model.getHistoryTableModel());
+		final JTable infoTable = new JTable(model.getOrderTableModel());
 		final PurchaseInfoTableModel itemsTableModel = new PurchaseInfoTableModel();
 		final JTable itemsTable = new JTable(itemsTableModel);
 
@@ -66,7 +66,7 @@ public class HistoryTab extends JPanel  {
 				int selectedRow = infoTable.getSelectedRow();
 				if (selectedRow >= 0) {
 					itemsTableModel.populateWithData(model
-							.getHistoryTableModel().getOrders(selectedRow));
+							.getOrderTableModel().getOrders(selectedRow));
 					System.out.println(selectedRow);
 				}
 			}

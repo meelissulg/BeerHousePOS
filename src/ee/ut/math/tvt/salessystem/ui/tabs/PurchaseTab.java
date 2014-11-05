@@ -1,10 +1,12 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
+import ee.ut.math.tvt.salessystem.domain.data.Order;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
+
 
 
 
@@ -151,7 +153,7 @@ public class PurchaseTab {
     JButton accept = new JButton("Accept");
     accept.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            
+            Order o = new Order();
             
                 
                 
