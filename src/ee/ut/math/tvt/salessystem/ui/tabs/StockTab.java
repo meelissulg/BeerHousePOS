@@ -128,13 +128,14 @@ public class StockTab {
 	addItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 //			StockItem item2 = new StockItem();
-			boolean kasonhea=true;
+			int kasonhea=0;
 			long esimene = 0;
 			try{
 				esimene=Long.parseLong(idField.getText());
+
 			}
 			catch(java.lang.NumberFormatException f){
-				kasonhea=false;
+				kasonhea=1;
 				final JPanel panel = new JPanel();
 
                 JOptionPane.showMessageDialog(panel, "Vale sisend", "Warning",
@@ -142,11 +143,12 @@ public class StockTab {
 			}
 			double price=0;
 			try{
+
 				price=(double) Math.round(Double.parseDouble(priceField.getText()) * 10) / 10;
 			}
 			catch(java.lang.NumberFormatException f){
 				final JPanel panel = new JPanel();
-				kasonhea=false;
+				kasonhea=1;
 
                 JOptionPane.showMessageDialog(panel, "Vale sisend", "Warning",
                     JOptionPane.WARNING_MESSAGE);
@@ -159,21 +161,19 @@ public class StockTab {
 			}
 			catch(java.lang.NumberFormatException f){
 				final JPanel panel = new JPanel();
-				kasonhea=false;
+				kasonhea=1;
                 JOptionPane.showMessageDialog(panel, "Vale sisend", "Warning",
                     JOptionPane.WARNING_MESSAGE);
 			}
 			
-			if (kasonhea=true){
+			if (kasonhea==0){
 			StockItem item2 = new StockItem(esimene,nameField.getText(),
 				descField.getText(),price,quant);
+				System.out.println("YOYOYOYO");
 			model.getWarehouseTableModel().addItem(item2);
 			}
 			
 
-			
-			///Siia peaks tegema midagi, mis selle item2 paneb siis kirja
-		//return item2?
 		}
 	});
 	
@@ -226,3 +226,5 @@ public class StockTab {
   }
 
 }
+
+
