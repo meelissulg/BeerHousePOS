@@ -1,5 +1,12 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
+
+import org.apache.log4j.Logger;
+
+import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
+import ee.ut.math.tvt.salessystem.ui.model.PurchaseInfoTableModel;
+import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -18,6 +25,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JPanel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.JTableHeader;
 
 import ee.ut.math.tvt.salessystem.domain.data.Order;
@@ -32,92 +41,52 @@ import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 public class HistoryTab extends JPanel  {
     
  
+	private static final Logger log = Logger.getLogger(PurchaseTab.class);
+	private final SalesDomainController domainController;
 	private SalesSystemModel model;
+
+	public HistoryTab(SalesDomainController controller, SalesSystemModel model) {
+		this.domainController = controller;
+		this.model = model;
+	}
+
+	public Component draw() {
+		JPanel panel = new JPanel();
+
+		panel.setLayout(new GridBagLayout());
+		panel.setBorder(BorderFactory.createTitledBorder("History"));
+
+		final JTable infoTable = new JTable(model.getHistoryTableModel());
+		final PurchaseInfoTableModel itemsTableModel = new PurchaseInfoTableModel();
+		final JTable itemsTable = new JTable(itemsTableModel);
+
+		infoTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+			public void valueChanged(ListSelectionEvent e) {
+				int selectedRow = infoTable.getSelectedRow();
+				if (selectedRow >= 0) {
+					itemsTableModel.populateWithData(model
+							.getHistoryTableModel().getOrders(selectedRow));
+					System.out.println(selectedRow);
+				}
+			}
+
+		});
+
+		panel.add(new JScrollPane(infoTable), getBacketScrollPaneConstraints());
+		panel.add(new JScrollPane(itemsTable), getBacketScrollPaneConstraints());
+
+		return panel;
+	}
 	
-	
-    public HistoryTab() {
-    	
-    	super(new GridLayout(1,0));
-    		
-   
-    } 
-    
-    public Component draw() {
-    	
-        JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        
-        GridBagLayout gb = new GridBagLayout();
-        GridBagConstraints gc = new GridBagConstraints();
-        panel.setLayout(gb);
-        
-        gc.fill = GridBagConstraints.HORIZONTAL;
-        gc.anchor = GridBagConstraints.NORTH;
-        gc.gridwidth = GridBagConstraints.REMAINDER;
-        gc.weightx = 1.0d;
-        gc.weighty = 0d;
-        
-        panel.add(drawStockMenuPane(), gc);
-        gc.weighty = 1.0;
-        gc.fill = GridBagConstraints.BOTH;
-//        panel.add(drawStockMainPane(), gc);
-       
-        return panel;
-    }
-    
-    private Component drawStockMenuPane() {
-        JPanel panel = new JPanel();
+	private GridBagConstraints getBacketScrollPaneConstraints() {
+		GridBagConstraints gc = new GridBagConstraints();
 
-        GridBagConstraints gc = new GridBagConstraints();
-        GridBagLayout gb = new GridBagLayout();
+		gc.fill = GridBagConstraints.BOTH;
+		gc.weightx = 1.0;
+		gc.weighty = 1.0;
 
-        panel.setLayout(gb);
-
-        gc.anchor = GridBagConstraints.NORTHWEST;
-        gc.weightx = 0;
-
-       
-        gc.gridwidth = GridBagConstraints.RELATIVE;
-        gc.weightx = 1.0;
-       
-
-        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        return panel;
-      }
-    
-//    private Component drawStockMainPane() {
-//        JPanel panel = new JPanel();
-//
-//        
-//		JTable table = new JTable(model.getHistoryTableModel());
-//		
-//		table.addMouseListener(new MouseAdapter() {
-//			  public void mouseClicked(MouseEvent e) {
-//			    if (e.getClickCount() == 1) {
-//			      JTable target = (JTable)e.getSource();
-//			      int row = target.getSelectedRow();
-//			      
-//			    }
-//			  }
-//		});
-//			  
-//        JTableHeader header = table.getTableHeader();
-//        header.setReorderingAllowed(false);
-//
-//        JScrollPane scrollPane = new JScrollPane(table);
-//
-//        GridBagConstraints gc = new GridBagConstraints();
-//        GridBagLayout gb = new GridBagLayout();
-//        gc.fill = GridBagConstraints.BOTH;
-//        gc.weightx = 1.0;
-//        gc.weighty = 1.0;
-//
-//        panel.setLayout(gb);
-//        panel.add(scrollPane, gc);
-//
-//        panel.setBorder(BorderFactory.createTitledBorder("History of orders"));
-//        return panel;
-//        
-//      }
+		return gc;
+	}
     
 }
