@@ -82,7 +82,16 @@ public abstract class SalesSystemTableModel<T extends DisplayableItem> extends
     public List<T> getTableRows() {
         return rows;
     }
-
+    
+    public boolean doesItemExist(final String name) {
+    	boolean bool = false;
+        for (final T item : rows) {
+            if (item.getName() == name)
+                bool = true;
+        }
+        return bool;
+    }
+    
     public void clear() {
         rows = new ArrayList<T>();
         fireTableDataChanged();
@@ -91,6 +100,7 @@ public abstract class SalesSystemTableModel<T extends DisplayableItem> extends
     public void populateWithData(final List<T> data) {
         rows.clear();
         rows.addAll(data);
+        fireTableDataChanged();
     }
     
     

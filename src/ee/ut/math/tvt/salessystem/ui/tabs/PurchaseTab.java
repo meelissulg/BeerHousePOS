@@ -12,6 +12,7 @@ import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
 
 
 
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -149,7 +150,7 @@ public class PurchaseTab {
               }
           }
       });
-    
+      
     JButton accept = new JButton("Accept");
     accept.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
@@ -261,22 +262,42 @@ public class PurchaseTab {
 
 
   /** Event handler for the <code>submit purchase</code> event. */
-  protected void submitPurchaseButtonClicked() {
-    log.info("Sale complete");
-    uusaken();
-    try {
-      log.debug("Contents of the current basket:\n" + model.getCurrentPurchaseTableModel());
-      domainController.submitCurrentPurchase(
-          model.getCurrentPurchaseTableModel().getTableRows()
-          
-      )
-      ;
-      endSale();
-      model.getCurrentPurchaseTableModel().clear();
- 
-    } catch (VerificationFailedException e1) {
-      log.error(e1.getMessage());
-    }
+  public void submitPurchaseButtonClicked() {
+//	  if (uusaken().isVisible()) {
+//			uusaken().setVisible(false);
+//			log.info("Sale complete");
+//			try {
+//				log.debug("Contents of the current basket:\n"
+//						+ model.getCurrentPurchaseTableModel());
+//				domainController.submitCurrentPurchase(model
+//						.getCurrentPurchaseTableModel().getTableRows());
+//				endSale();
+//		    	model.getOrderTableModel().addItem(model.getCurrentPurchaseTableModel().getTableRows());
+//				model.getCurrentPurchaseTableModel().clear();
+//			} catch (VerificationFailedException e1) {
+//				log.error(e1.getMessage());
+//			}
+//		}
+//		else {
+//			purchasePane.getConfirmationPane().setVisible(true);
+//			setOrderButtonsEnabledTo(false);
+//			purchasePane.getConfirmationPane().processPurchase(this, model.getCurrentPurchaseTableModel().getTableRows());
+//		}
+//    log.info("Sale complete");
+//    uusaken();
+//    try {
+//      log.debug("Contents of the current basket:\n" + model.getCurrentPurchaseTableModel());
+//      domainController.submitCurrentPurchase(
+//          model.getCurrentPurchaseTableModel().getTableRows()
+//          
+//      )
+//      ;
+//      endSale();
+//      model.getCurrentPurchaseTableModel().clear();
+// 
+//    } catch (VerificationFailedException e1) {
+//      log.error(e1.getMessage());
+//    }
   }
 
 
@@ -304,6 +325,12 @@ public class PurchaseTab {
     newPurchase.setEnabled(true);
     purchasePane.setEnabled(false);
   }
+  
+  public void setOrderButtonsEnabledTo(boolean value) {
+		purchasePane.setEnabled(value);
+		submitPurchase.setEnabled(value);
+		cancelPurchase.setEnabled(value);
+	}
 
 
   /* === Next methods just create the layout constraints objects that control the

@@ -21,11 +21,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import org.apache.log4j.Logger;
+
 /**
  * Purchase pane + shopping cart tabel UI.
  */
 public class PurchaseItemPanel extends JPanel {
 
+	private static final Logger log = Logger.getLogger(PurchaseItemPanel.class);
     private static final long serialVersionUID = 1L;
 
     // Text field on the dialogPane
@@ -47,10 +50,11 @@ public class PurchaseItemPanel extends JPanel {
      */
     public PurchaseItemPanel(SalesSystemModel model) {
         this.model = model;
-
+        
         setLayout(new GridBagLayout());
 
         add(drawDialogPane(), getDialogPaneConstraints());
+        
         add(drawBasketPane(), getBasketPaneConstraints());
 
         setEnabled(false);
@@ -81,10 +85,12 @@ public class PurchaseItemPanel extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(5, 2));
         panel.setBorder(BorderFactory.createTitledBorder("Product"));
+        
+        //String[] productNames = model.getWarehouseTableModel().getProductNames();
 
         // Initialize the textfields
         barCodeField = new JTextField();
-        quantityField = new JTextField("69");
+        quantityField = new JTextField("1");
         nameField = new JComboBox<String>();
         priceField = new JTextField();
 
@@ -162,17 +168,23 @@ public class PurchaseItemPanel extends JPanel {
         // add chosen item to the shopping cart.
     	StockItem stockItem = getStockItemByName(nameField.getItemAt(nameField.getSelectedIndex()));
         if (stockItem != null) {
-            int quantity;
+            int quantity = 0;
             try {
                 quantity = Integer.parseInt(quantityField.getText());
             } catch (NumberFormatException ex) {
-                quantity = 1;
+                log.error(ex);
             }
             SoldItem soldItem = new SoldItem(stockItem, quantity);
-            if (stockItem.getQuantity() >= soldItem.getQuantity()){
-            	model.getCurrentPurchaseTableModel()
-                .addItem(soldItem);
+            
+            if (model.getWarehouseTableModel().getNewQuantity(stockItem, quantity) >= 0) {
+            	model.getCurrentPurchaseTableModel().addItem(new SoldItem(stockItem, quantity));
+            	model.getWarehouseTableModel().removeQuantity(stockItem,quantity);
             }
+            else {
+            	JOptionPane.showMessageDialog(null, "Not so much left in warehouse!");
+            }
+            	
+        }
             else{
             	final JPanel panel = new JPanel();
 
@@ -181,7 +193,7 @@ public class PurchaseItemPanel extends JPanel {
             }
             }
             
-    }
+    
 
     /**
      * Sets whether or not this component is enabled.
@@ -190,10 +202,12 @@ public class PurchaseItemPanel extends JPanel {
     public void setEnabled(boolean enabled) {
         this.addItemButton.setEnabled(enabled);
         this.quantityField.setEnabled(enabled);
-        String[] items = model.getWarehouseTableModel().getItems();
-        for (int i = 0; i<items.length; i++){
-        	nameField.addItem(items[i]);
-        }
+//        String[] items = model.getWarehouseTableModel().getItems();
+//        for (int i = 0; i<items.length; i++){
+//        	nameField.addItem(items[i]);
+//        }
+        this.quantityField.setEnabled(enabled);
+        this.nameField.setEnabled(enabled);
     }
 
     /**

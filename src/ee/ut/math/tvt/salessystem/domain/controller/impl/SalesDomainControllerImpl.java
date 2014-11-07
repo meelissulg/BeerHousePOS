@@ -28,6 +28,18 @@ public class SalesDomainControllerImpl implements SalesDomainController {
 	public void startNewPurchase() throws VerificationFailedException {
 		// XXX - Start new purchase
 	}
+	
+	public void startNewAdd() throws VerificationFailedException{
+		// XXX - Start adding items to warehouse
+	}
+	
+	public void confirmItemAdd() throws VerificationFailedException{
+		// XXX - Add item to the warehouse
+	}
+
+	public void cancelItemAdd() throws VerificationFailedException{
+		// XXX - Cancel the item adding
+	}
 
 	public List<StockItem> loadWarehouseState() {
 		// XXX mock implementation

@@ -1,5 +1,7 @@
 package ee.ut.math.tvt.salessystem.domain.data;
 
+import java.util.Date;
+
 
 
 /**
@@ -13,6 +15,7 @@ public class SoldItem implements Cloneable, DisplayableItem {
     private String name;
     private Integer quantity;
     private double price;
+    private Date date;
     
     private Order order;
     
@@ -21,7 +24,7 @@ public class SoldItem implements Cloneable, DisplayableItem {
         this.name = stockItem.getName();
         this.price = stockItem.getPrice();
         this.quantity = quantity;
-        
+        this.date = new Date();
     }
     
     
