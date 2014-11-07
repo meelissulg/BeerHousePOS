@@ -76,6 +76,7 @@ public class WarehousePanel extends JPanel {
 					quantityField.setText("");
 					priceField.setText(Double.toString(price));
 					barCodeField.setText(Long.toString(barcode));
+					// 
 				}
 			}
 		});
