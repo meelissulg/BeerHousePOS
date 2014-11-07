@@ -6,7 +6,6 @@ import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
-import ee.ut.math.tvt.salessystem.ui.tabs.PaymentWindow;
 
 
 
@@ -172,23 +171,28 @@ public class PurchaseTab {
 
 
   /** Event handler for the <code>submit purchase</code> event. */
-  protected void submitPurchaseButtonClicked() {
-    log.info("Sale complete");
-    PaymentWindow.uusaken();
-    try {
-      log.debug("Contents of the current basket:\n" + model.getCurrentPurchaseTableModel());
-      domainController.submitCurrentPurchase(
-          model.getCurrentPurchaseTableModel().getTableRows()
-          
-      )
-      ;
-      endSale();
-      model.getCurrentPurchaseTableModel().clear();
- 
-    } catch (VerificationFailedException e1) {
-      log.error(e1.getMessage());
-    }
-  }
+  public void submitPurchaseButtonClicked() {
+		if (purchasePane.getConfirmationPane().isVisible()) {
+			purchasePane.getConfirmationPane().setVisible(false);
+			log.info("Sale complete");
+			try {
+				log.debug("Contents of the current basket:\n"
+						+ model.getCurrentPurchaseTableModel());
+				domainController.submitCurrentPurchase(model
+						.getCurrentPurchaseTableModel().getTableRows());
+				endSale();
+		    	model.getOrderTableModel().addItem(model.getCurrentPurchaseTableModel().getTableRows());
+				model.getCurrentPurchaseTableModel().clear();
+			} catch (VerificationFailedException e1) {
+				log.error(e1.getMessage());
+			}
+		}
+		else {
+			purchasePane.getConfirmationPane().setVisible(true);
+			setOrderButtonsEnabledTo(false);
+			purchasePane.getConfirmationPane().processPurchase(this, model.getCurrentPurchaseTableModel().getTableRows());
+		}
+	}
 
 
 
@@ -200,22 +204,23 @@ public class PurchaseTab {
   private void startNewSale() {
     purchasePane.reset();
 
-    purchasePane.setEnabled(true);
-    submitPurchase.setEnabled(true);
-    cancelPurchase.setEnabled(true);
-    newPurchase.setEnabled(false);
+    setOrderButtonsEnabledTo(true);
+	newPurchase.setEnabled(false);
   }
 
   // switch UI to the state that allows to initiate new purchase
   private void endSale() {
     purchasePane.reset();
 
-    cancelPurchase.setEnabled(false);
-    submitPurchase.setEnabled(false);
-    newPurchase.setEnabled(true);
-    purchasePane.setEnabled(false);
+    setOrderButtonsEnabledTo(false);
+	newPurchase.setEnabled(true);
   }
-
+  
+  public void setOrderButtonsEnabledTo(boolean value) {
+		purchasePane.setEnabled(value);
+		submitPurchase.setEnabled(value);
+		cancelPurchase.setEnabled(value);
+	}
 
   /* === Next methods just create the layout constraints objects that control the
    *     the layout of different elements in the purchase tab. These definitions are

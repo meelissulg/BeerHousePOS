@@ -1,5 +1,6 @@
 package ee.ut.math.tvt.salessystem.ui.panels;
 
+import ee.ut.math.tvt.salessystem.ui.panels.ConfirmationPane;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
@@ -39,6 +40,8 @@ public class PurchaseItemPanel extends JPanel {
 
     private JButton addItemButton;
 
+    ConfirmationPane confirmationPane;
+
     // Warehouse model
     private SalesSystemModel model;
 
@@ -50,10 +53,14 @@ public class PurchaseItemPanel extends JPanel {
      */
     public PurchaseItemPanel(SalesSystemModel model) {
         this.model = model;
-        
+        confirmationPane = new ConfirmationPane(model);
+        confirmationPane.setVisible(false);
+
         setLayout(new GridBagLayout());
 
         add(drawDialogPane(), getDialogPaneConstraints());
+        add(confirmationPane, getConfirmationPaneConstraints());
+        
         
         add(drawBasketPane(), getBasketPaneConstraints());
 
@@ -150,8 +157,12 @@ public class PurchaseItemPanel extends JPanel {
         }
     }
 
-
+    public ConfirmationPane getConfirmationPane() {
+    	return confirmationPane;
+    }
+    
 	// Search the warehouse for a StockItem with the name in dropdown menu 
+   
     
     private StockItem getStockItemByName(String name) {
         try {;
@@ -265,6 +276,18 @@ public class PurchaseItemPanel extends JPanel {
         gc.fill = GridBagConstraints.BOTH;
         gc.weightx = 1.0;
         gc.weighty = 1.0;
+
+        return gc;
+    }
+    
+    private GridBagConstraints getConfirmationPaneConstraints() {
+        GridBagConstraints gc = new GridBagConstraints();
+
+        gc.anchor = GridBagConstraints.WEST;
+        gc.weightx = 0.2;
+        gc.weighty = 0d;
+        gc.gridwidth = GridBagConstraints.REMAINDER;
+        gc.fill = GridBagConstraints.NONE;
 
         return gc;
     }
