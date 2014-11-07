@@ -40,22 +40,22 @@ public class OrderTableModel extends AbstractTableModel {
 		return orders.get(selectedRow);
 	}
     
-	@Override
+
 	public int getRowCount() {
 		return rows.size();
 	}
 
-	@Override
+
 	public int getColumnCount() {
 		return headers.length;
 	}
 
-	@Override
+
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		return (rows.get(rowIndex)[columnIndex]);
 	}
 	
-    @Override
+
     public String getColumnName(final int columnIndex) {
         return headers[columnIndex];
     }

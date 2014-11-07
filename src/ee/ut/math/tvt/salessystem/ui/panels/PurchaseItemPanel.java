@@ -202,10 +202,10 @@ public class PurchaseItemPanel extends JPanel {
     public void setEnabled(boolean enabled) {
         this.addItemButton.setEnabled(enabled);
         this.quantityField.setEnabled(enabled);
-//        String[] items = model.getWarehouseTableModel().getItems();
-//        for (int i = 0; i<items.length; i++){
-//        	nameField.addItem(items[i]);
-//        }
+        String[] items = model.getWarehouseTableModel().getItems();
+        for (int i = 0; i<items.length; i++){
+        	nameField.addItem(items[i]);
+        }
         this.quantityField.setEnabled(enabled);
         this.nameField.setEnabled(enabled);
     }

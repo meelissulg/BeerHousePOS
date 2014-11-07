@@ -6,32 +6,19 @@ import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
-
-
-
-
+import ee.ut.math.tvt.salessystem.ui.tabs.PaymentWindow;
 
 
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import org.apache.log4j.Logger;
 
 /**
@@ -109,77 +96,7 @@ public class PurchaseTab {
   }
   
 
-  public void uusaken(){
-	  final JFrame frame = new JFrame("Makse");
-      frame.setLayout(new GridLayout(4, 2));
-      frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-      final JTextField payment = new JTextField();
-      payment.setText("0");
-      frame.add(new JLabel("Total sum: "));
-      final double price = model.getCurrentPurchaseTableModel().getTotalPrice();
-      frame.add(new JLabel(String.valueOf(price)));
-      frame.add(new JLabel("Payment amount: "));
-      frame.add(payment);
-      frame.add(new JLabel("Change amount: "));
-      final JLabel tagasi = new JLabel();
-      frame.add(tagasi);
-      payment.addKeyListener(new KeyAdapter() 
-      {
-          public void keyPressed(KeyEvent evt)
-          {
-              if(evt.getKeyCode() == KeyEvent.VK_ENTER)
-              {
-            	  if(Double.parseDouble(payment.getText())<price){
-            		  final JPanel panel = new JPanel();
-
-                     JOptionPane.showMessageDialog(panel, "Sisestatud summa on liiga väike", "Warning",
-                     JOptionPane.WARNING_MESSAGE);
-      }
-            	  else{
-            	  try{
-            	  double change=Double.parseDouble(payment.getText())-price;
-            	  tagasi.setText(String.valueOf(change));
-            	  }
-            	  catch( java.lang.NumberFormatException e){
-            		  final JPanel panel = new JPanel();
-
-                      JOptionPane.showMessageDialog(panel, "Vale sisend", "Warning",
-                          JOptionPane.WARNING_MESSAGE);
-            	  }
-            	  }
-              }
-          }
-      });
-      
-    JButton accept = new JButton("Accept");
-    accept.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            Order o = new Order();
-            
-                
-                
-        	
-            
-          }
-        });
-    frame.add(accept);
-    
-    
-    JButton cancel = new JButton("Cancel");
-    cancel.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          frame.setVisible(false);
-            
-          }
-        });
-    frame.add(cancel);
-      frame.pack();
-      frame.setResizable(false);
-      frame.setVisible(true);
-  }
-
-
-  
+ 
   // Creates the button "New purchase"
   private JButton createNewPurchaseButton() {
     JButton b = new JButton("New purchase");
@@ -200,11 +117,7 @@ public class PurchaseTab {
     b.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         submitPurchaseButtonClicked();
-        
-            
-            
-//        
-        
+                 
       }
     });
     b.setEnabled(false);
@@ -225,9 +138,6 @@ public class PurchaseTab {
 
     return b;
   }
-
-
-
 
 
   /* === Event handlers for the menu buttons
@@ -262,42 +172,22 @@ public class PurchaseTab {
 
 
   /** Event handler for the <code>submit purchase</code> event. */
-  public void submitPurchaseButtonClicked() {
-//	  if (uusaken().isVisible()) {
-//			uusaken().setVisible(false);
-//			log.info("Sale complete");
-//			try {
-//				log.debug("Contents of the current basket:\n"
-//						+ model.getCurrentPurchaseTableModel());
-//				domainController.submitCurrentPurchase(model
-//						.getCurrentPurchaseTableModel().getTableRows());
-//				endSale();
-//		    	model.getOrderTableModel().addItem(model.getCurrentPurchaseTableModel().getTableRows());
-//				model.getCurrentPurchaseTableModel().clear();
-//			} catch (VerificationFailedException e1) {
-//				log.error(e1.getMessage());
-//			}
-//		}
-//		else {
-//			purchasePane.getConfirmationPane().setVisible(true);
-//			setOrderButtonsEnabledTo(false);
-//			purchasePane.getConfirmationPane().processPurchase(this, model.getCurrentPurchaseTableModel().getTableRows());
-//		}
-//    log.info("Sale complete");
-//    uusaken();
-//    try {
-//      log.debug("Contents of the current basket:\n" + model.getCurrentPurchaseTableModel());
-//      domainController.submitCurrentPurchase(
-//          model.getCurrentPurchaseTableModel().getTableRows()
-//          
-//      )
-//      ;
-//      endSale();
-//      model.getCurrentPurchaseTableModel().clear();
-// 
-//    } catch (VerificationFailedException e1) {
-//      log.error(e1.getMessage());
-//    }
+  protected void submitPurchaseButtonClicked() {
+    log.info("Sale complete");
+    PaymentWindow.uusaken();
+    try {
+      log.debug("Contents of the current basket:\n" + model.getCurrentPurchaseTableModel());
+      domainController.submitCurrentPurchase(
+          model.getCurrentPurchaseTableModel().getTableRows()
+          
+      )
+      ;
+      endSale();
+      model.getCurrentPurchaseTableModel().clear();
+ 
+    } catch (VerificationFailedException e1) {
+      log.error(e1.getMessage());
+    }
   }
 
 
@@ -325,12 +215,6 @@ public class PurchaseTab {
     newPurchase.setEnabled(true);
     purchasePane.setEnabled(false);
   }
-  
-  public void setOrderButtonsEnabledTo(boolean value) {
-		purchasePane.setEnabled(value);
-		submitPurchase.setEnabled(value);
-		cancelPurchase.setEnabled(value);
-	}
 
 
   /* === Next methods just create the layout constraints objects that control the
