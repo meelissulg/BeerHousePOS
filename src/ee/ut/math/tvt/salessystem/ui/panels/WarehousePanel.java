@@ -7,11 +7,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -70,7 +67,7 @@ public class WarehousePanel extends JPanel {
 					// get info from clicking on table cells
 					final Long barcode = (Long) target.getValueAt(row, 0);
 					final String name = (String) target.getValueAt(row, 1);
-					final double price = (double) target.getValueAt(row, 2);
+					final double price = (Double) target.getValueAt(row, 2);
 					// final int quantity = (int)target.getValueAt(row, 3);
 					nameField.setText(name);
 					quantityField.setText("");
@@ -111,15 +108,14 @@ public class WarehousePanel extends JPanel {
 					nameField.setEnabled(true);
 				}
 			}
-			@Override
+
 			public void insertUpdate(DocumentEvent e) {
 				getItem();
 			}
-			@Override
+
 			public void removeUpdate(DocumentEvent e) {
 				getItem();
 			}
-			@Override
 			public void changedUpdate(DocumentEvent e) {
 				getItem();
 			}
