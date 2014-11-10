@@ -53,12 +53,13 @@ public class PurchaseItemPanel extends JPanel {
      */
     public PurchaseItemPanel(SalesSystemModel model) {
         this.model = model;
+
         confirmationPane = new ConfirmationPane(model);
         confirmationPane.setVisible(false);
 
         setLayout(new GridBagLayout());
-
         add(drawDialogPane(), getDialogPaneConstraints());
+
         add(confirmationPane, getConfirmationPaneConstraints());
         
         

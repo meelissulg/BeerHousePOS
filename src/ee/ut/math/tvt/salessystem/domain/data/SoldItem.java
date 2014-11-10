@@ -9,7 +9,14 @@ import java.util.Date;
  */
 public class SoldItem implements Cloneable, DisplayableItem {
 
-    private Long id;
+    @Override
+	public String toString() {
+		return "SoldItem [id=" + id + ", stockItem=" + stockItem + ", name="
+				+ name + ", quantity=" + quantity + ", price=" + price
+				+ ", date=" + date + ", order=" + order + "]";
+	}
+
+	private Long id;
     private StockItem stockItem;
     
     private String name;

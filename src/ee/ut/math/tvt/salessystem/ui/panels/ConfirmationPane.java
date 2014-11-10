@@ -1,5 +1,6 @@
 package ee.ut.math.tvt.salessystem.ui.panels;
 
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -45,7 +47,7 @@ public class ConfirmationPane extends JPanel {
     }
     
     public void drawConfirmationPane() {
-
+    	JFrame panel = new JFrame(); 
         // Create the panel
         this.setLayout(new GridLayout(4, 2));
         this.setBorder(BorderFactory.createTitledBorder("Confirmation"));
@@ -78,7 +80,8 @@ public class ConfirmationPane extends JPanel {
         
         this.add(acceptButton);
         this.add(cancelButton);
-        
+        this.setSize(280, 150);
+        this.setVisible(true);
     }
     
 	private JButton createAcceptButton() {

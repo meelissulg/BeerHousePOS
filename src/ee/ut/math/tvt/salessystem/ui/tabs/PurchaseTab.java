@@ -5,7 +5,9 @@ import ee.ut.math.tvt.salessystem.domain.data.Order;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+import ee.ut.math.tvt.salessystem.ui.panels.ConfirmationPane;
 import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
+
 
 
 
@@ -15,9 +17,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -40,7 +44,7 @@ public class PurchaseTab {
 
   private SalesSystemModel model;
  
-
+  ConfirmationPane confirmationPane;
   public PurchaseTab(SalesDomainController controller,
       SalesSystemModel model)
   {
@@ -115,15 +119,19 @@ public class PurchaseTab {
     JButton b = new JButton("Confirm");
     b.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        submitPurchaseButtonClicked();
-                 
+//        submitPurchaseButtonClicked();
+    	prooviks();
       }
     });
     b.setEnabled(false);
 
     return b;
   }
-
+protected void prooviks(){
+	purchasePane.getConfirmationPane().setVisible(true);
+	setOrderButtonsEnabledTo(false);
+	purchasePane.getConfirmationPane().processPurchase(this, model.getCurrentPurchaseTableModel().getTableRows());
+}
 
   // Creates the "Cancel" button
   private JButton createCancelButton() {
@@ -172,16 +180,24 @@ public class PurchaseTab {
 
   /** Event handler for the <code>submit purchase</code> event. */
   public void submitPurchaseButtonClicked() {
+	  System.out.println(model.getCurrentPurchaseTableModel().getTableRows().toString());
+	  model.getOrderTableModel().addItem(model.getCurrentPurchaseTableModel().getTableRows());
+//	  try {
+//		domainController.submitCurrentPurchase(model.getCurrentPurchaseTableModel().getTableRows());
+//	} catch (VerificationFailedException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
+	  System.out.println(purchasePane.getConfirmationPane().isVisible());
 		if (purchasePane.getConfirmationPane().isVisible()) {
 			purchasePane.getConfirmationPane().setVisible(false);
 			log.info("Sale complete");
 			try {
-				log.debug("Contents of the current basket:\n"
-						+ model.getCurrentPurchaseTableModel());
-				domainController.submitCurrentPurchase(model
-						.getCurrentPurchaseTableModel().getTableRows());
+				log.debug("Contents of the current basket:\n" + model.getCurrentPurchaseTableModel());
+				domainController.submitCurrentPurchase(model.getCurrentPurchaseTableModel().getTableRows());
 				endSale();
-		    	model.getOrderTableModel().addItem(model.getCurrentPurchaseTableModel().getTableRows());
+				System.out.println(model.getCurrentPurchaseTableModel().getTableRows());
+//		    	model.getOrderTableModel().addItem(model.getCurrentPurchaseTableModel().getTableRows());
 				model.getCurrentPurchaseTableModel().clear();
 			} catch (VerificationFailedException e1) {
 				log.error(e1.getMessage());
