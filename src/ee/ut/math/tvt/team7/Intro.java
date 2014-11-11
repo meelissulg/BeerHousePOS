@@ -14,6 +14,7 @@ import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.domain.controller.impl.SalesDomainControllerImpl;
 import ee.ut.math.tvt.salessystem.ui.ConsoleUI;
 import ee.ut.math.tvt.salessystem.ui.SalesSystemUI;
+import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 import ee.ut.math.tvt.team7.IntroUI;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -42,7 +43,7 @@ private static final String MODE = "console";
 	}
 
 	public static void main(String[] args) {
-		
+		HibernateUtil.currentSession();
 		final SalesDomainController domainController = new SalesDomainControllerImpl();
 
 		if (args.length == 1 && args[0].equals(MODE)) {
@@ -100,7 +101,6 @@ private static final String MODE = "console";
 			output = new FileOutputStream("config/version.properties");
 	 
 //			// set the properties value
-//			int a=Integer.parseInt(prop.getProperty("build.revision.number"))+1;
 //			String b=Integer.toString(a);
 //			propa.setProperty("build.revision.number", b);
 //			propa.setProperty("build.minor.number", "1");

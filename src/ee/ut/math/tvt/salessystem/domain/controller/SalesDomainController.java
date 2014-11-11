@@ -67,6 +67,8 @@ public interface SalesDomainController {
      * @throws VerificationFailedException
      */
     public void cancelItemAdd() throws VerificationFailedException;
+    
+    public void endSession();
 }
 
 
