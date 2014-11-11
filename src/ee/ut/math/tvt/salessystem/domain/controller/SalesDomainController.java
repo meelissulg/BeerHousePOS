@@ -27,7 +27,7 @@ public interface SalesDomainController {
      * @throws VerificationFailedException
      */
     public void startNewPurchase() throws VerificationFailedException;
-
+    
     /**
      * Rollback business transaction - purchase of goods.
      * 
@@ -68,3 +68,5 @@ public interface SalesDomainController {
      */
     public void cancelItemAdd() throws VerificationFailedException;
 }
+
+
