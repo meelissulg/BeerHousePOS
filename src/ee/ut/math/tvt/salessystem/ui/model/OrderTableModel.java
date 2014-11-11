@@ -40,6 +40,10 @@ public class OrderTableModel extends AbstractTableModel {
 		return orders.get(selectedRow);
 	}
     
+//	public void populateWithData(List<Order> saleData) {
+//		for (Order sale: saleData)
+//			addItem(sale);
+//	}
 
 	public int getRowCount() {
 		return rows.size();

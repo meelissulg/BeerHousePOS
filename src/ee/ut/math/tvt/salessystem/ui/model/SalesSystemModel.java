@@ -1,8 +1,12 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
+import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 
 /**
  * Main model. Holds all the other models.
@@ -32,9 +36,9 @@ public class SalesSystemModel {
         currentPurchaseTableModel = new PurchaseInfoTableModel();
         orderTableModel = new OrderTableModel();
 
-        // populate stock model with data from the warehouse
-        warehouseTableModel.populateWithData(domainController.loadWarehouseState());
-
+        List<StockItem> warehouseContents = HibernateUtil.currentSession().createQuery("from StockItem").list();
+		warehouseTableModel.populateWithData(warehouseContents);
+		
     }
 
     public StockTableModel getWarehouseTableModel() {
