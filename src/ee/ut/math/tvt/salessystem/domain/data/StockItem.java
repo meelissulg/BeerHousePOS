@@ -1,19 +1,38 @@
 package ee.ut.math.tvt.salessystem.domain.data;
-
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 /**
  * Stock item. Corresponds to the Data Transfer Object design pattern.
  */
+@Entity
+@Table(name = "STOCKITEM")
 public class StockItem implements Cloneable, DisplayableItem {
 	
-    private Long id;
+	 	@Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Long id;
 
-    private String name;
+	    @Column(name = "NAME")
+	    private String name;
 
-    private double price;
+	    @Column(name = "PRICE")
+	    private double price;
 
-    private String description;
-    
-    private int quantity;
+	    @Column(name = "DESCRIPTION")
+	    private String description;
+	    
+	    @Column(name = "QUANTITY")
+	    private int quantity;
+	    
+	    @OneToMany(mappedBy = "stockItem")
+	    private Set<SoldItem> soldItems;
+
 
     /**
      * Constucts new <code>StockItem</code> with the specified values.
