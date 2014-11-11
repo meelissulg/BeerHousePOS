@@ -3,6 +3,7 @@ package ee.ut.math.tvt.salessystem.ui.tabs;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 import ee.ut.math.tvt.salessystem.domain.exception.OutOfStockException;
 import ee.ut.math.tvt.salessystem.domain.controller.impl.*;
 
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -127,52 +129,39 @@ public class StockTab {
 	addItem = new JButton("A.D.D");
 	addItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-//			StockItem item2 = new StockItem();
+			StockItem item2 = new StockItem();
 			int kasonhea=0;
+			Boolean error = true;
 			long esimene = 0;
-			try{
-				esimene=Long.parseLong(idField.getText());
+			try {
+				item2.setName(nameField.getText());
+				item2.setDescription(descField.getText());
+				item2.setPrice((double) Math.round(Double
+						.parseDouble(priceField.getText()) * 10) / 10);
+				item2.setQuantity(Integer.parseInt(quantityField.getText()));
+				error = false;
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null,
+						"Please insert valid data", "Error",
+						JOptionPane.WARNING_MESSAGE);
+			}
 
+			if (!error) {
+				try {
+//					System.out.println(item2);
+					Session session = HibernateUtil.currentSession();
+					session.beginTransaction();
+					session.persist(item2);
+					session.getTransaction().commit();
+					model.getWarehouseTableModel().addItem(item2);
+				} catch (Throwable t) {
+					log.error("Could not save item to the database");
+					t.printStackTrace();
+					JOptionPane.showMessageDialog(null,
+							"Database transaction failed", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
-			catch(java.lang.NumberFormatException f){
-				kasonhea=1;
-				final JPanel panel = new JPanel();
-
-                JOptionPane.showMessageDialog(panel, "Vale sisend", "Warning",
-                    JOptionPane.WARNING_MESSAGE);
-			}
-			double price=0;
-			try{
-
-				price=(double) Math.round(Double.parseDouble(priceField.getText()) * 10) / 10;
-			}
-			catch(java.lang.NumberFormatException f){
-				final JPanel panel = new JPanel();
-				kasonhea=1;
-
-                JOptionPane.showMessageDialog(panel, "Vale sisend", "Warning",
-                    JOptionPane.WARNING_MESSAGE);
-			}
-			
-			
-			int quant=0;
-			try{
-				quant=Integer.parseInt(quantityField.getText());
-			}
-			catch(java.lang.NumberFormatException f){
-				final JPanel panel = new JPanel();
-				kasonhea=1;
-                JOptionPane.showMessageDialog(panel, "Vale sisend", "Warning",
-                    JOptionPane.WARNING_MESSAGE);
-			}
-			
-			if (kasonhea==0){
-			StockItem item2 = new StockItem(esimene,nameField.getText(),
-				descField.getText(),price,quant);
-				System.out.println("YOYOYOYO");
-			model.getWarehouseTableModel().addItem(item2);
-			}
-			
 
 		}
 	});
