@@ -30,6 +30,7 @@
 	        <pathelement location="${build.classes.dir}"/>
 	        <!-- configuration -->
 	        <pathelement location="${conf.dir}"/>
+		 <pathelement location="${basedir}"/>
 	        <fileset dir="${lib.dir}">
 	            <include name="*.jar"/>
 	        </fileset>
@@ -40,6 +41,7 @@
 	</path>
 	
 	<path id="compile.classpath">
+		<pathelement location="${basedir}"/>
 			<fileset dir="${source.lib.dir}">
 				<include name="*.jar" />
 			</fileset>

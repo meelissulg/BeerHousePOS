@@ -62,7 +62,6 @@ public class IntroUI{
         
         String work = System.getProperty("user.dir");
         String path= "file:///"+work +"\\"+ Intro.logo;
-        System.out.println(path);
         Image logo = new Image(path, 300, 300, true, true);
         ImageView iv= new ImageView(logo);
         iv.setLayoutX(350);
