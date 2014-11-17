@@ -1,10 +1,13 @@
 package data;
 
-<<<<<<< HEAD
-public class StockItemTest {
-
-=======
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
+import org.junit.Test;
 
 public class StockItemTest {
 	StockItem stockItem;
@@ -14,11 +17,10 @@ public class StockItemTest {
 	}
 	
 	public void testClone(){
-		
+		assertEquals(stockItem.clone(),stockItem);
 	}
 	
 	public void testGetColumn(){
-		
+		assertEquals(stockItem.getColumn(2),3);
 	}
->>>>>>> fd9b932cbe85182e49e0b270d7776d0dab8c2888
 }
