@@ -38,6 +38,7 @@ public class SalesSystemModel {
 
         List<StockItem> warehouseContents = HibernateUtil.currentSession().createQuery("from StockItem").list();
 		warehouseTableModel.populateWithData(warehouseContents);
+		//orderTableModel.populateWithData();
 		
     }
 
