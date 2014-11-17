@@ -66,8 +66,6 @@ public class ConsoleUI {
 	private void populateWarehouse() {
 		warehouse = dc.loadWarehouseState();
 	}
-	
-	
 
 	private void showStock(List<StockItem> stock) {
 		System.out.println("-------------------------");
