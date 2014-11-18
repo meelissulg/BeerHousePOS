@@ -12,38 +12,38 @@ import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 
 public class OrderTest {
-	StockItem stockItem1 = new StockItem((long)47, "TestProduct1", "RandomDisc1", 3.5);
-	StockItem stockItem2 = new StockItem((long)48, "TestProduct2", "RandomDisc2", 5.5);
-	StockItem stockItem3 = new StockItem((long)49, "TestProduct3", "RandomDisc3", 2.5);
-	
-	SoldItem soldItem1 = new SoldItem(stockItem1, 2);
-	SoldItem soldItem2 = new SoldItem(stockItem2, 1);
-	SoldItem soldItem3 = new SoldItem(stockItem3, 3);
-	
-	SoldItem[] soldProducts = {soldItem1, soldItem2, soldItem3};
-	SoldItem[] soldProductsEmpty = {};
-	
-	Order order1; 
-	Order order2;
+	SoldItem soldItem;
 
 	@Before
 	public void setUp() throws Exception {
-		order1 = new Order(Arrays.asList(soldProducts));
-		order2 = new Order(Arrays.asList(soldProductsEmpty));
+		soldItem = new SoldItem(
+				new StockItem((long) 1, "Lauaviin", "", 3.5, 100), 2);
 	}
 
 	@Test
 	public void testAddSoldItem(){
+		Order order = new Order();
+		order.addSoldItem(soldItem);
 		
+		assertEquals(order.getNrOfSoldItems(), 1);
 	}
 	public void testGetSumWithNoItems(){
-		
+		Order order = new Order();
+		assertEquals(0.0, order.getSum(), 0.0001);
 	}
 	public void testGetSumWithOneItem(){
+		Order order = new Order();
+		order.addSoldItem(soldItem);
 		
+		assertEquals(7.0, order.getSum(), 0.0001);
 	}
 	public void testGetSumWithMultipleItems(){
+		Order order = new Order();
 		
+		order.addSoldItem(soldItem);
+		order.addSoldItem(soldItem);
+		
+		assertEquals(14.0, order.getSum(), 0.0001);
 	}
 
 }

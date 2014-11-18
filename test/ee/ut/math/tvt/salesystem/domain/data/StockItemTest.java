@@ -12,7 +12,7 @@ public class StockItemTest {
 	
 	 @Before
 	public void setUp() {
-		 StockItem item = new StockItem(85l, "testItem", "test", 9, 23);
+		item = new StockItem(85l, "testItem", "test", 9, 23);
 	  }
 	 
 	@Test
