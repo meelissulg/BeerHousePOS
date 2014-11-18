@@ -1,22 +1,27 @@
 package ee.ut.math.tvt.salesystem.domain.data;
 
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 
-import static org.junit.Assert.assertEquals;
-
-
 public class StockItemTest {
-	StockItem stockItem;
+	StockItem item;
 	
+	 @Before
 	public void setUp() {
-		stockItem = new StockItem((long) 888, "Lauriviin", "test", 5.5, 3);
-	}
-	
+		 StockItem item = new StockItem(85l, "testItem", "test", 9, 23);
+	  }
+	 
+	@Test
 	public void testClone(){
-		assertEquals(stockItem.clone(),stockItem);
+		assertEquals(item.clone(), item);
 	}
 	
 	public void testGetColumn(){
-		assertEquals(stockItem.getColumn(2),3);
+		assertEquals(item.getColumn(3), 23);
 	}
+
 }
