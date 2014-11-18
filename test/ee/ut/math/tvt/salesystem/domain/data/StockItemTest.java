@@ -1,14 +1,10 @@
-package data;
+package ee.ut.math.tvt.salesystem.domain.data;
 
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
-//
+
 public class StockItemTest {
 	StockItem stockItem;
 	

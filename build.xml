@@ -7,8 +7,11 @@
 	<property name="source.lib.dir" value="${basedir}/lib" />
 	<property name="source.conf.dir" value="${basedir}/config" />
 	<property name="source.assets.dir" value="${basedir}/assets" />
-
+	<property name="test.dir"   value="${basedir}/test"/>
+	
 	<property name="build.dir" value="${basedir}/build" />
+
+	<property name="build.test.dir" value="${build.dir}/test"/>
 	<property name="build.classes.dir" value="${build.dir}/classes" />
 	<property name="build.lib.dir" value="${build.classes.dir}/lib" />
 	<property name="build.conf.dir" value="${build.classes.dir}/config" />
@@ -24,7 +27,17 @@
 	<property name="db.url" 	value="jdbc:hsqldb:hsql://localhost/POS"/>
 	<property name="lib.hibernate.dir"   value="${lib.dir}/hibernate"/>	
 	
-	<property name="lib.dir" value="${basedir}/lib" />
+	
+	<path id="libs">
+			<fileset dir="${lib.dir}">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+	
+	<path id="build.classpath">
+			<fileset dir="${lib.dir}" includes="*.jar" />
+	        <fileset dir="${lib.hibernate.dir}" includes="*.jar" />
+		</path>
 	
 	<path id="run.classpath">
 	        <pathelement location="${build.classes.dir}"/>
@@ -59,11 +72,13 @@
 			</fileset>
 		</path>
 	
+	
 	<!--clean OK, toimib kuida tarvis -->
 	<target name="clean"
 			description="removing the files created during the previous build">
 			<delete dir="${build.dir}" />
 		</target>
+	
 	<!---->
 	<target name="build"
 			description="compiling the source code and sets log4j and other files in the right places">
@@ -82,6 +97,28 @@
 					<classpath refid="compile.classpath"/>
 			</javac>
 		</target>
+	
+	<target name="build-tests" depends="build" description="Build the system">
+			<mkdir dir="${build.test.dir}" />
+			<javac
+	            srcdir="${test.dir}"
+	            destdir="${build.test.dir}"
+	            debug="true"
+	            debuglevel="lines,vars,source"
+	            encoding="utf-8"
+	            compiler="modern"
+	            target="1.5"
+	            source="1.5"
+	        	classpathref="build.classpath"
+				includeantruntime="false"
+	        >
+				<classpath>
+					<pathelement path="${classes.dir}" />
+				</classpath>
+			</javac>
+		</target>
+
+	
 <!--run peaks olema korras-->
 	<target name="run" depends="build"
 			description="executes your application via class Intro">
@@ -216,6 +253,20 @@
 		        >
 		            <arg line="-database.0 '${db.file}' -dbname.0 '${db.alias}'" /> 
 		        </java>
+		</target>
+	
+	<target name="test" depends="build-tests" description="Run the template application">
+
+			<junit>
+				<classpath refid="test.classpath" />
+
+				<formatter type="brief" usefile="false" />
+				<batchtest>
+					<fileset dir="${build.test.dir}" includes="**/*.class" />
+				</batchtest>
+			</junit>
+
+
 		</target>
 	
 </project>
