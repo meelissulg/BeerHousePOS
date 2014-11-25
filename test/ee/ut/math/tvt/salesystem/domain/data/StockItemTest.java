@@ -1,7 +1,7 @@
 package ee.ut.math.tvt.salesystem.domain.data;
 
 import static org.junit.Assert.*;
-
+import static org.hamcrest.CoreMatchers.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,12 +12,18 @@ public class StockItemTest {
 	
 	 @Before
 	public void setUp() {
-		item = new StockItem(85l, "testItem", "test", 9, 23);
+		item = new StockItem(85l, "testItem", "test", 9.0, 23);
 	  }
 	 
 	@Test
 	public void testClone(){
-		assertEquals(item.clone(), item);
+		StockItem asi = item.clone();
+		assertEquals(asi.getName(), item.getName());
+		assertEquals(asi.getDescription(), item.getDescription());
+		assertEquals(asi.getPrice(), item.getPrice(), 0.005);
+		assertEquals(asi.getQuantity(), item.getQuantity());
+		assertThat(asi, is(not(item)));
+		
 	}
 	
 	public void testGetColumn(){
