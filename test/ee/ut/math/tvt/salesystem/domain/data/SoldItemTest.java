@@ -21,6 +21,7 @@ public class SoldItemTest {
 		
 		assertEquals(3.5*2, soldItem.getSum(), 0.0001);
 	}
+	@Test
 	public void testGetSumWithZeroQuantity(){
 		SoldItem soldItem = new SoldItem(stockItem, 0);
 		

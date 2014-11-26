@@ -25,7 +25,7 @@ public class StockItemTest {
 		assertThat(asi, is(not(item)));
 		
 	}
-	
+	@Test
 	public void testGetColumn(){
 		assertEquals(item.getColumn(3), 23);
 	}

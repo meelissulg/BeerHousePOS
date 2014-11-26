@@ -27,16 +27,19 @@ public class OrderTest {
 		
 		assertEquals(order.getNrOfSoldItems(), 1);
 	}
+	@Test
 	public void testGetSumWithNoItems(){
 		Order order = new Order();
 		assertEquals(0.0, order.getSum(), 0.0001);
 	}
+	@Test
 	public void testGetSumWithOneItem(){
 		Order order = new Order();
 		order.addSoldItem(soldItem);
 		
 		assertEquals(7.0, order.getSum(), 0.0001);
 	}
+	@Test
 	public void testGetSumWithMultipleItems(){
 		Order order = new Order();
 		

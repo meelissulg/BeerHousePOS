@@ -3,6 +3,7 @@ package ee.ut.math.tvt.salesystem.ui.model;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +28,7 @@ public class StockTableModelTest {
 	public void testValidateNameUniqueness(){
 		
 	}
+	@Test
 	public void testHasEnoughInStock(){
 		List<StockItem> stockItems = stockTableModel.getTableRows();
 		boolean hasEnoughInStock = true;
@@ -40,15 +42,16 @@ public class StockTableModelTest {
 
 		assertTrue(hasEnoughInStock);
 	}
+	@Test
 	public void testGetItemByIdWhenItemExists(){
 		StockItem stockItem = stockTableModel.getItemById(1);
 		
 		assertNotNull(stockItem);
 	}
+	@Test(expected=NoSuchElementException.class)
 	public void testGetItemByIdWhenThrowsException(){
 		StockItem stockItem = stockTableModel.getItemById(1000);
 		
-		assertNull(stockItem);
 	}
 
 }
